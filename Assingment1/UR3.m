@@ -3,6 +3,12 @@ set(0,'DefaultFigureWindowStyle','docked')
 clc
 clf
 clear
+%% 
+workspace = [-2 2 -2 2 -0.3 2]; 
+location1 = transl(0, 0, 0);
+UR3_1 = UR3Model(workspace, location1)
+UR3_1.model.teach()
+
 
 %% DH model for UR3
 % https://github.com/petercorke/robotics-toolbox-matlab/blob/master/models/mdl_ur3.m?fbclid=IwAR0oCubw8Y2PEoGO9inW7-8GlEHgH0a37CPgMK8oKjSJIEADVc8BU8d-NcY
@@ -26,7 +32,7 @@ z1 = input('UR3-1 base z coordinate')
 
 myRobot.base = transl(x1, y1, z1);
 myRobot.plot(q)
-%myRobot.teach;
+myRobot.teach;
 hold on;
 % load('pcloudmatrix.mat')
 % 
@@ -93,7 +99,8 @@ pause;
 % volume = (4/3*pi*baseTransform^3)/2
 
 %% animate the arm in the bubble to some positions
-
+% [Q,ERR,EXITFLAG] = robot.ikcon(T, Q0) as above but specify the
+%  initial joint coordinates Q0 used for the minimisation.
 robotQ = zeros(1,6)
 myRobot.plot(robotQ);
 housingTop = transl(0.3,0.5,0)*trotx(pi)  %translation matrix
