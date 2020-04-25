@@ -10,6 +10,7 @@ UR3_1 = UR3Model(workspace, location1)
 hold on;
 UR3_1.getVolume()
 
+
 %% DH model for UR3
 
 % % 

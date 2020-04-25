@@ -33,10 +33,12 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
                             for q5 = qlim(5,1):stepRads:qlim(5,2)
                                 % Don't need to worry about joint 6, just assume it=0
                                 q6 = 0;
-                                %                     for q6 = qlim(6,1):stepRads:qlim(6,2)
+                                % for q6 = qlim(6,1):stepRads:qlim(6,2)
                                 q = [q1,q2,q3,q4,q5,q6];
                                 tr = self.model.fkine(q);
-                                pointCloud(counter,:) = tr(1:3,4)';
+                                if(tr(3,4)>0)
+                                    pointCloud(counter,:) = tr(1:3,4)';
+                                end
                                 counter = counter + 1;
                                 if mod(counter/pointCloudeSize * 100,1) == 0
                                     display(['After ',num2str(toc),' seconds, completed ',num2str(counter/pointCloudeSize * 100),'% of poses']);
