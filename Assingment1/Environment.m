@@ -9,19 +9,19 @@ classdef Environment < handle % class to handle setting up of the static body
     end
     
     methods
-        function self = body(workspace, bodyNum, location)
-            self.plotAndColour(workspace, bodyNum, location);
+        function self = Environment(object, workspace, location)
+            self.plotAndColour(object, workspace, location);
             camlight;
         end
                
-        function plotAndColour(self, workspace, bodyNum, location)
+        function plotAndColour(self, object, workspace, location)
             if isempty(self.faceData) || isempty(self.vertexData) || isempty(self.plyData)
-                [self.faceData,self.vertexData,self.plyData] = plyread(['body', num2str(bodyNum), '.ply'],'tri');
+                [self.faceData,self.vertexData,self.plyData] = plyread([object, '.ply'],'tri');
                 % ply file data of bodys is stored for each body
             end
             
             L1 = Link('alpha',0,'a',1,'d',0,'offset',0);
-            self.model = SerialLink(L1, 'name' , ['body', num2str(bodyNum)]);
+            self.model = SerialLink(L1, 'name', 'object');
             % 1 link robot used to simulate bodys for simplicity
             self.model.faces = {self.faceData,[]};
             self.model.points = {self.vertexData,[]};

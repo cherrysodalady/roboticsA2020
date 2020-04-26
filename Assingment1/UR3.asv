@@ -4,14 +4,18 @@ clc
 clf
 clear
 %% setting up robot and showing volume and max reach
-workspace = [-2 2 -2 2 0 2];
+workspace = [-2 2 -2 2 -0.6 2];
+
+tableloc = transl(0, 0, -0.4154)
+
+model = Environment('table', workspace, tableloc)
 
 location1 = transl(0, 0, 0);
 UR3_1 = UR3Model(workspace, location1)
 pause(0.01)
 hold on;
 
-location2 = transl(1, 1, 0);
+location2 = transl(0.5, 0.5, 0);
 UR3_2 = UR3Model(workspace, location2)
 disp('calculating volume point cloud...')
 
@@ -36,6 +40,7 @@ housingBotQ = UR3_1.ikcon(housingBot);
 
 circuitBoard = transl(0.1, 0.2,0)*trotx(pi);   
 circuitBoardQ = UR3_1.ikcon(circuitBoard);
+
 
 %UR3_1_Move = Movement.move
 
