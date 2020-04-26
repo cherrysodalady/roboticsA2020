@@ -4,21 +4,21 @@ classdef Movement
     properties
         
     end
- % for trajStep = 1:size(qMatrix,1)
-%     q = qMatrix(trajStep,:);    %each joint position line by line
-%     myRobot.animate(q);
-%     pause(0.01);
+    % for trajStep = 1:size(qMatrix,1)
+    %     q = qMatrix(trajStep,:);    %each joint position line by line
+    %     myRobot.animate(q);
+    %     pause(0.01);
     methods
         function Move(robotLocation,partLocation, steps)
-           qMatrix = jtraj(robotLocation, partLocation, steps)
-           for trajstep = 1:size
+            qMatrix = jtraj(robotLocation, partLocation, steps)
+            for trajstep = 1:size(qMatrix, 1)
+                q = qMatrix(trajstep,:); %each joint position line by line
+                self.animate(q);
+                pause(0.01);
+            end
         end
         
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
-        end
+        
     end
 end
 
