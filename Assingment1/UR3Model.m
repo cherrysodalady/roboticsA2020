@@ -61,9 +61,7 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
          function [maxReach] = getReach(self)
              zVals = self.pointCloud(:,3)
              maxZVal = max(zVals)
-             %maxReach = maxZVal
-             baseHeight = self.model.links.d
-             maxReach = maxZVal + baseHeight
+             maxReach = maxZVal
          end
         
         function PlotAndColour(self,location)
