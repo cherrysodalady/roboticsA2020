@@ -1,13 +1,9 @@
 classdef Movement
     %this class allows for control of the movement of the robot
     
-    properties
-        
+    properties        
     end
-    % for trajStep = 1:size(qMatrix,1)
-    %     q = qMatrix(trajStep,:);    %each joint position line by line
-    %     myRobot.animate(q);
-    %     pause(0.01);
+   
     methods
         function Move(robotLocation,partLocation, steps)
             qMatrix = jtraj(robotLocation, partLocation, steps)

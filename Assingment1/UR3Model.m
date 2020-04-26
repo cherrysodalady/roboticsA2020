@@ -6,6 +6,7 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
         workspace;
         plyData; 
         pointCloud;
+        pointCloudPlot;
     end
     
     methods
@@ -52,17 +53,16 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
                 end
             end
             
-            % 2.6 Create a 3D model showing where the end effector can be over all these samples.
-            figure(2)
-            plot3(pointCloud(:,1),pointCloud(:,2),pointCloud(:,3),'r.');
+            % 2.6 Create a 3D model showing where the end effector can be over all these samples.           
+            self.pointCloudPlot = plot3(pointCloud(:,1),pointCloud(:,2),pointCloud(:,3),'r.');
             [k, totalVol] = convhull(pointCloud);
             self.pointCloud = pointCloud
         end
         
          function [maxReach] = getReach(self)
-             zVals = self.pointCloud(:,3)
-             maxZVal = max(zVals)
-             maxReach = maxZVal
+             zVals = self.pointCloud(:,3);
+             maxZVal = max(zVals);
+             maxReach = maxZVal;
          end
         
         function PlotAndColour(self,location)
