@@ -4,7 +4,8 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
         currentJoints;
         location;
         workspace;
-        plyData;   
+        plyData; 
+        pointCloud;
     end
     
     methods
@@ -14,7 +15,8 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
             self.currentJoints = zeros(1,6);
             self.model.base = location;
             self.PlotAndColour(self.location);
-            self.getVolume();            
+           % self.getVolume();
+           % self.getReach();
         end
         
         function [totalVol] = getVolume(self)
@@ -53,9 +55,17 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
             % 2.6 Create a 3D model showing where the end effector can be over all these samples.
             plot3(pointCloud(:,1),pointCloud(:,2),pointCloud(:,3),'r.');
             [k, totalVol] = convhull(pointCloud);
-            
-
+            self.pointCloud = pointCloud
         end
+        
+         function [maxReach] = getReach(self)
+             zVals = self.pointCloud(:,3)
+             maxZVal = max(zVals)
+             %maxReach = maxZVal
+             baseHeight = self.model.links.d
+             maxReach = maxZVal + baseHeight
+         end
+        
         function PlotAndColour(self,location)
             for linkIndex = 0:self.model.n
                 [ faceData, vertexData, plyData{linkIndex + 1} ] = plyread(['link',num2str(linkIndex),'.ply'],'tri'); %#ok<AGROW>
@@ -95,7 +105,8 @@ classdef UR3Model < handle % setup and move the UR3 robot, as well as log its tr
             
             pause(0.0001)
             name = ['UR_3_',datestr(now,'yyyymmddTHHMMSSFFF')];
-            self.model = SerialLink([L1 L2 L3 L4 L5 L6], 'name', name);             
+            self.model = SerialLink([L1 L2 L3 L4 L5 L6], 'name', name);
+            
         end
     end
 end
