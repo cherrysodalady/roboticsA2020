@@ -4,37 +4,42 @@ clc
 clf
 clear
 %% setting up robot and showing volume and max reach
-workspace = [-4 4 -4 4 -0.6 5];
+workspace = [-3 3 -3 3 -0.6 2];
 
-Table = Objects('table',workspace,transl(0,0,-0.42));
+% Table = Environment('table',workspace,transl(0,0,-0.42));
+% hold on;
+% Fence = Environment('fence',workspace, transl(0,2,0));
+% Fence2 = Environment('fencerot',workspace, transl(-2,0,0));
+% Fence3 = Environment('fence2',workspace, transl(0,-2,0));
+% Fence4 = Environment('fencerot2',workspace, transl(2,0,0));
+tophousing = Environment('top', workspace, transl(0.1, 0.2, 0));
+bottomhousing = Environment('bottom', workspace, transl(-0.3, 0.4,0));
+circuitboard = Environment('circuit', workspace, transl(0.2, 0.1, 0));
+pause(0.01);
 hold on;
-Fence = Objects('fence',workspace, transl(0,2,0));
-Fence2 = Objects('fencerot',workspace, transl(-2,0,0));
-Fence3 = Objects('fence2',workspace, transl(0,-2,0))
-Fence4 = Objects('fencerot2',workspace, transl(2,0,0));
-pause;
-
 location1 = transl(0, 0, 0);
 UR3_1 = UR3Model(workspace, location1)
+hold on;
 pause(0.01)
 
 location2 = transl(0.5, 0.5, 0);
 UR3_2 = UR3Model(workspace, location2)
-disp('calculating volume point cloud...')
+hold on;
+% disp('calculating volume point cloud...')
 
 % UR3_1.getVolume()
 %  disp('Press enter to continue to max reach');
 %  pause;
 % UR3_1.getReach()
-disp('Press enter to continue');
-pause;
+% disp('Press enter to continue');
+% pause;
 % delete(UR3_1.pointCloudPlot)
 %% Both arms move
 
 robotQ = zeros(1,6);
 UR3_1.model.plot(robotQ);
-pause
-housingTop = transl(0.-0.1,0.3,0.1)*trotx(pi);  %translation matrix
+pause(0.01)
+housingTop = transl(0.1,0.2,0)*trotx(pi);  %translation matrix
 housingTopQ = UR3_1.model.ikcon(housingTop, [1,1,1,0,0,0]);   %joint angles required for top circuit board position
 
 housingBot = transl(-0.2,-0.4,0)*trotx(pi);   
@@ -44,9 +49,15 @@ circuitBoard = transl(0.1, 0.2,0)*trotx(pi);
 circuitBoardQ = UR3_1.model.ikcon(circuitBoard, [1,1,1,0,0,0]);
 
 UR3_1pos = UR3_1.model.getpos()
+UR3_2pos = UR3_2.model.getpos()
 
-moveUR3_1 = movement()
-moveUR3_1.move(UR3_1pos, housingTopQ, 15, UR3_1.model)
+%ur3_1 pickup top housing
+topmove = movement()
+moveUR3_1.move(UR3_1pos, housingTopQ, 10, UR3_1.model)
+UR3_1.model.fkine(UR3_1.model.getpos())
+disp('Top Housing Picked up')
+pause;
 
-disp('actually moved yass')
+%ur3_2 pickup circuit board
+
 

@@ -1,4 +1,4 @@
-classdef Objects < handle % class to handle setting up of the static body
+classdef Environment < handle % class to handle setting up of the static body
     properties
         model;
         plyData;
@@ -7,7 +7,7 @@ classdef Objects < handle % class to handle setting up of the static body
     end
     
     methods
-        function self = Objects(ModelName, workspace, location)
+        function self = Environment(ModelName, workspace, location)
             self.plotAndColour(workspace, ModelName, location);
         end
                
