@@ -9,8 +9,8 @@ classdef movement
         function self = movement()
         end
         function move(self, robotLocation,partLocation, steps, robotModel)
-            qMatrix = jtraj(robotLocation, partLocation, steps)
-            for trajstep = 1:size(qMatrix, 1)
+            qMatrix = jtraj(robotLocation, partLocation, steps);
+            for trajstep = 1:size(qMatrix, 1);
                 q = qMatrix(trajstep,:); %each joint position line by line
                 robotModel.animate(q);
                 pause(0.01);
