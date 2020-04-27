@@ -22,7 +22,7 @@ classdef Environment < handle % class to handle setting up of the static body
             
             L1 = Link('alpha',0,'a',1,'d',0,'offset',0);
             self.model = SerialLink(L1, 'name', 'object');
-            % 1 link robot used to simulate bodys for simplicity
+            % 1 link robot used to simulate bodies for simplicity
             self.model.faces = {self.faceData,[]};
             self.model.points = {self.vertexData,[]};
             
