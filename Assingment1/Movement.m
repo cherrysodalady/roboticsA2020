@@ -22,7 +22,7 @@ classdef movement
             for trajstep = 1:size(qMatrix, 1)
                 q = qMatrix(trajstep,:); %each joint position line by line
                 robotModel.animate(q);
-                partModel.model.base = robotModel.model.fkine(robotModel.model.getpos())
+                partModel.base = robotModel.fkine(robotModel.getpos())
                 partModel.animate(0); % just a one link robot
                 pause(0.01);
             end

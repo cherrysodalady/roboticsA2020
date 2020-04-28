@@ -1,15 +1,15 @@
 close all
-%set(0,'DefaultFigureWindowStyle','docked')
+set(0,'DefaultFigureWindowStyle','docked')
 clc
 clf
 clear
 %% setting up robot and showing volume and max reach
 workspace = [-3 3 -3 3 -0.6 2];
 
- Table = Environment('table',workspace,transl(0,0,-0.42));
- hold on;
- Fence = Environment('fence',workspace, transl(0,2,0));
- Fence2 = Environment('fencerot',workspace, transl(-2,0,0));
+% Table = Environment('table',workspace,transl(0,0,-0.42));
+% hold on;
+% Fence = Environment('fence',workspace, transl(0,2,0));
+% Fence2 = Environment('fencerot',workspace, transl(-2,0,0));
  Fence3 = Environment('fence2',workspace, transl(0,-2,0));
  Fence4 = Environment('fencerot2',workspace, transl(2,0,0));
 tophousing = Environment('top', workspace, transl(-0.42, 0.46, 0));
@@ -26,15 +26,15 @@ pause;
 location2 = transl(0.23, 0.23, 0);
 UR3_2 = UR3Model(workspace, location2)
 hold on;
- disp('calculating volume point cloud...')
+% disp('calculating volume point cloud...')
 
- UR3_1.getVolume()
-  disp('Press enter to continue to max reach');
-  pause;
- UR3_1.getReach()
- disp('Press enter to continue');
- pause;
- delete(UR3_1.pointCloudPlot)
+% UR3_1.getVolume()
+%  disp('Press enter to continue to max reach');
+%  pause;
+% UR3_1.getReach()
+% disp('Press enter to continue');
+% pause;
+% delete(UR3_1.pointCloudPlot)
 %% Both arms move
 
 robotQ = zeros(1,6);
